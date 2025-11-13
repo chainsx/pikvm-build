@@ -59,7 +59,9 @@ jobs:
             powershell \
             openjdk* \
             mysql* \
-            php*
+            php* \
+            docker* \
+            containerd*
           sudo -E apt-get update
           sudo -E apt-get -y ack binutils bison build-essential \
             ccache cmake device-tree-compiler flex gawk gettext \
