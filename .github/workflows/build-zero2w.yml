@@ -59,9 +59,7 @@ jobs:
             powershell \
             openjdk* \
             mysql* \
-            php* \
-            docker* \
-            containerd*
+            php*
           sudo -E apt-get update
           sudo -E apt-get -y ack binutils bison build-essential \
             ccache cmake device-tree-compiler flex gawk gettext \
@@ -78,7 +76,6 @@ jobs:
           CONFIG_FILE: 'zero2w-config.mk'
         run: |
           sudo apt-get install git make curl binutils -y
-          sudo apt-get install docker.io
           git clone --depth=1 https://github.com/pikvm/os
 
           [ -e $CONFIG_FILE ] && mv $CONFIG_FILE os/config.mk
