@@ -86,7 +86,10 @@ jobs:
 
           ls images
 
-          cd images/v2-hdmi-zero2w/arm && xz -v *img
+          cd images/v2-hdmi-zero2w/arm
+          rm v2-hdmi-zero2w-arm-latest.img
+          rm v2-hdmi-zero2w-arm-latest.img.sha1
+          xz -v *img
           
       - name: Upload
         if: needs.prepare_release.outputs.release_id != ''
@@ -95,7 +98,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_id: ${{ needs.prepare_release.outputs.release_id }}
-          file: "./os/images/v2-hdmi-zero2w/arm/*.img.xz*"
+          file: "./os/images/v2-hdmi-zero2w/arm/*.img*"
           draft: false
       - name: Rollback release
         if: failure() && needs.prepare_release.outputs.release_id != ''
