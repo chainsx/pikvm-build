@@ -1,4 +1,4 @@
-name: Build-PiKVM-Zero2W
+name: Build-PiKVM-Zero2W-AARCH64
 on:
   workflow_dispatch:
 
@@ -81,14 +81,14 @@ jobs:
           [ -e $CONFIG_FILE ] && mv $CONFIG_FILE os/config.mk
           cd os
 
-          make os
-          make image
+          make os ARCH=aarch64
+          make image ARCH=aarch64
 
           ls images
 
-          cd images/v2-hdmi-zero2w/arm
-          rm v2-hdmi-zero2w-arm-latest.img
-          rm v2-hdmi-zero2w-arm-latest.img.sha1
+          cd images/v2-hdmi-zero2w/aarch64
+          rm v2-hdmi-zero2w-aarch64-latest.img
+          rm v2-hdmi-zero2w-aarch64-latest.img.sha1
           xz -v *img
           
       - name: Upload
@@ -98,7 +98,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_id: ${{ needs.prepare_release.outputs.release_id }}
-          file: "./os/images/v2-hdmi-zero2w/arm/*.img*"
+          file: "./os/images/v2-hdmi-zero2w/aarch64/*.img*"
           draft: false
       - name: Rollback release
         if: failure() && needs.prepare_release.outputs.release_id != ''
